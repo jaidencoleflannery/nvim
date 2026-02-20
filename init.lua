@@ -1,3 +1,6 @@
+-- empty keybind leader
+vim.g.mapleader = " "
+
 -- initialize plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -16,11 +19,16 @@ vim.opt.rtp:prepend(lazypath)
 require("options")
 
 require("lazy").setup({
-  "neovim/nvim-lspconfig",
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
+    "neovim/nvim-lspconfig",
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
 })
 
+-- mason manages developer tools like lsps and linters
 require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = { "omnisharp" },
@@ -43,6 +51,7 @@ local function omnisharp_cmd()
   return nil
 end
 
+-- spin up omnisharp (c# lsp)
 lspconfig.omnisharp.setup({
   cmd = omnisharp_cmd(),
   root_dir = util.root_pattern("*.sln", "*.csproj", ".git"),
@@ -57,15 +66,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
--- basic UI configuration
+-- basic ui configuration
 vim.opt.termguicolors = true
 
--- load custom opencode theme
+-- load theme
 require("colors.terminal").setup()
 vim.cmd.colorscheme("terminal")
 
+-- keymaps
+vim.keymap.set("n", "ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
+vim.keymap.set("n", "fg", "<cmd>Telescope live_grep<cr>", { desc = "Live grep" })
+vim.keymap.set("n", "fb", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
+
 -- control configuration
-vim.opt.tabstop = 4         -- Size of a hard tabstop (ts)
-vim.opt.shiftwidth = 4      -- Size of an indentation (sw)
-vim.opt.expandtab = true    -- Use spaces instead of tab characters (et)
-vim.opt.softtabstop = 4     -- Number of spaces a <Tab> counts for in Insert mode (sts)
+vim.opt.tabstop = 4         -- size of a hard tabstop (ts)
+vim.opt.shiftwidth = 4      -- size of an indentation (sw)
+vim.opt.expandtab = true    -- use spaces instead of tab characters (et)
+vim.opt.softtabstop = 4     -- number of spaces a <Tab> counts for in Insert mode (sts)
