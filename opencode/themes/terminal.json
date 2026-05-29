@@ -1,0 +1,31 @@
+{
+  "$schema": "https://opencode.ai/theme.json",
+  "defs": {
+    "bg": "#000000",
+    "panel": "#403d39",
+    "text": "#e5e7eb",
+    "muted": "#ccc5b9",
+    "accent": "#ffd60a",
+    "danger": "#e63946",
+    "ok": "#ecf39e",
+    "warn": "#fca311"
+  },
+  "theme": {
+    "primary": "accent",
+    "secondary": "muted",
+    "accent": "accent",
+    "error": "danger",
+    "warning": "warn",
+    "success": "ok",
+    "text": "text",
+    "textMuted": "muted",
+    "background": "bg",
+    "backgroundPanel": "panel",
+    "backgroundElement": "panel",
+    "border": "panel",
+    "borderActive": "accent",
+    "diffAdded": "ok",
+    "diffRemoved": "danger",
+    "diffContext": "muted"
+  }
+}
